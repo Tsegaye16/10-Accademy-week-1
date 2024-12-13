@@ -311,4 +311,3 @@ def PlotMACD(df):
     plt.legend()
     plt.grid(True)
     plt.show()
-
