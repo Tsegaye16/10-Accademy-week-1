@@ -40,22 +40,24 @@ def GtHeadlineLengthStats(df):
 
 
 # Convert a specified column to datetime and set it as the index
-def ConvertDdate(df, column_name='Date'):        
-    if column_name not in df.columns:
+def ConvertDdate(df):    
+   date_length = df['date'].apply(len)
+   # Truncate the 'date' column to a length of 19 characters
+   df['date'] = df['date'].str.slice(0, 19)   
+   # Convert the 'date' column to datetime format
+   df['date'] = pd.to_datetime(df['date'])
+    
+   return df
 
-        raise ValueError(f"Column '{column_name}' not found in DataFrame.")
-    
-    # Convert the column to datetime
-    df[column_name] = pd.to_datetime(df[column_name], errors='coerce').dt.date
-    
-    # Set this column as the index
-    df.set_index(column_name, inplace=True)
-    
-    # Convert the index to DatetimeIndex
-    df.index = pd.to_datetime(df.index)
-    
+
+# Extract year, month, day, hour, and minute from the 'date' column
+def EctractTimeFormat(df):
+    df['year'] = df['date'].dt.year
+    df['month'] = df['date'].dt.month
+    df['day'] = df['date'].dt.day
+    df['hour'] = df['date'].dt.hour
+    df['minute'] = df['date'].dt.minute
     return df
-
 
 def ArticlePublishedYearly(df):
     #Extract year and month from the date
@@ -311,3 +313,22 @@ def PlotMACD(df):
     plt.legend()
     plt.grid(True)
     plt.show()
+
+def FetchStockData(ticker, period='1y'):
+    """Fetch historical stock data using yfinance."""
+    stock_data = yf.Ticker(ticker)
+    historical_data = stock_data.history(period=period)
+    return historical_data
+
+def FinancialMetrics(ticker):
+    """Calculate financial metrics using yfinance."""
+    metrics = {}
+    stock = yf.Ticker(ticker)
+    
+    # Fetching company information
+    info = stock.info
+    metrics['PE_Ratio'] = info.get('forwardEps', 'N/A') / info.get('forwardEps', 'N/A') if info.get('forwardEps', None) else 'N/A'
+    metrics['Market_Cap'] = info.get('marketCap', 'N/A')
+    metrics['Dividend_Yield'] = info.get('dividendYield', 'N/A')
+    
+    return metrics
