@@ -1,118 +1,83 @@
-## Project Overview
+# Leveraging-AI-Techniques-for-Financial-News-Sentiment-Analysis-and-Stock-Prediction
 
-This project contains a Python script designed for analyzing and visualizing news article datasets. The script includes functions for data preprocessing, sentiment analysis, statistical computations, and graphical visualizations. It is modular, allowing users to load data, inspect it, preprocess it, and generate insights effectively.
+This project aims to use AI techniques to analyze financial news sentiment and predict stock prices. The project involves collecting financial news articles, analyzing their sentiment, and predicting stock movements based on the analyzed sentiment.
 
----
+## Table of Contents
 
-## Features
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-### 1. **Data Inspection**
+## Introduction
 
-- **`LoadData(file_path)`**: Load the dataset from a specified file path.
-- **`InspectData(dataFrame)`**: View the first few rows of the dataset.
-- **`GetShape(df)`**: Get the shape (rows, columns) of the dataset.
-- **`GetSummary(df)`**: Generate a statistical summary of numerical columns.
-- **`GetColumns(df)`**: Display all column names.
-- **`GetColumnNames(df)`**: Get the column names as a list.
-- **`GetColumnTypes(df)`**: View the data types of columns.
-- **`CheckMissingValue(df)`**: Check for missing values in the dataset.
+Nova Financial Solutions aims to enhance its predictive analytics capabilities to significantly boost its financial forecasting accuracy and operational efficiency through advanced data analysis. As a Data Analyst at Nova Financial Solutions, your primary task is to conduct a rigorous analysis of the financial news dataset. The focus of your analysis should be two-fold:
 
-### 2. **Data Preprocessing**
+- **Sentiment Analysis**: Perform sentiment analysis on the ‘headline’ text to quantify the tone and sentiment expressed in financial news. This will involve using natural language processing (NLP) techniques to derive sentiment scores, which can be associated with the respective 'Stock Symbol' to understand the emotional context surrounding stock-related news.
 
-- **`RemoveColumn(df)`**: Remove unnecessary columns from the dataset.
-- **`AddHeadlineLength(df)`**: Compute the length of article headlines.
-- **`GtHeadlineLengthStats(df)`**: Get statistical insights about headline lengths.
-- **`ConvertDdate(df, column_name='Date')`**: Convert date columns into a standard datetime format.
-- **`ConvertDate(df)`**: Additional functionality to standardize date formats.
-- **`ArticlePublishedYearly(df)`**: Extract yearly trends in article publication.
+- **Correlation Analysis**: Establish statistical correlations between the sentiment derived from news articles and the corresponding stock price movements. This involves tracking stock price changes around the date the article was published and analyzing the impact of news sentiment on stock performance. This analysis should consider the publication date and potentially the time the article was published if such data can be inferred or is available.
 
-### 3. **Visualization**
+## Installation
 
-- **`HeadlineLength(df)`**: Visualize headline length distribution.
-- **`TopPublisher(df)`**: Identify and visualize top publishers.
-- **`YearlyArticlePublished(df)`**: Plot the yearly trend of article publications.
-- **`DailyArticlesPublishedEachMonth(df)`**: Visualize daily publication trends for each month.
-- **`ThreeYearJanu(df)`**: Generate specific visualizations for January over three years.
-- **`SentimentScore(df)`**: Compute sentiment scores for each article.
-- **`SentimentClass(df)`**: Categorize articles by sentiment (e.g., Positive, Neutral, Negative).
-- **`PlotDistributions(final_data)`**: Plot statistical distributions.
-- **`PlotScatter(final_data)`**: Create scatter plots for data relationships.
-- **`PlotHeatmap(final_data)`**: Generate heatmaps for correlation analysis.
-- **`PlotScatterAndHeatmap(final_data)`**: Combine scatter and heatmap visualizations.
-
-### 4. **Analysis and Technical Indicators**
-
-- **`NumArticlePubTime(df)`**: Analyze article publication trends over time.
-- **`CalculateTechnicalIndicators(df)`**: Compute advanced metrics or indicators (e.g., moving averages, volatility).
-- **`PlotStockData(df)`**: Plot stock-related data trends based on the articles.
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Required Libraries: pandas, matplotlib, seaborn, numpy
-
-### Installation
+To set up this project, you will need to clone the repository and install the necessary dependencies. This project uses Python 3.11 and Conda for environment management.
 
 1. Clone the repository:
+
    ```bash
-   git clone https://github.com/Tsegaye16/Financial_News_and_Stock-Price_analaysis
+   git clone https://github.com/Tsegaye16/Financial_News_and_Stock-Price_analaysis.git
+   cd Leveraging-AI-Techniques-for-Financial-News-Sentiment-Analysis-and-Stock-Prediction
    ```
-2. Install required dependencies:
+
+2. Create and activate a new Conda environment:
+
+   ```bash
+   conda create --name env_task2 python=3.11
+   conda activate env_task2
+   ```
+
+3. Install the required dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-### Usage
+## Usage
 
-1. Import the necessary functions:
-   ```python
-   from script_name import LoadData, InspectData, AddHeadlineLength, ...
-   ```
-2. Load the dataset:
-   ```python
-   df = LoadData("path_to_your_dataset.csv")
-   ```
-3. Perform preprocessing and analysis:
-   ```python
-   InspectData(df)
-   df = AddHeadlineLength(df)
-   PlotScatter(df)
+Currently, the project is in the preprocessing stage. Here are the steps you can follow to preprocess the data and perform sentiment analysis:
+
+1. **Data Preprocessing**: Use the `preprocessing.py` script located in the `scripts/` directory to clean and prepare the data for analysis.
+
+   ```bash
+   python scripts/preprocessing.py
    ```
 
----
+2. **Sentiment Analysis**: Run the `sentiment.py` script to perform sentiment analysis on the cleaned data.
 
-## Example Workflow
+   ```bash
+   python scripts/sentiment.py
+   ```
 
-```python
-# Step 1: Load the dataset
-df = LoadData("articles.csv")
+3. **Exploratory Data Analysis (EDA)**: Use the `eda.py` script to conduct EDA on the dataset to understand the data distribution and key characteristics.
 
-# Step 2: Inspect the dataset
-InspectData(df)
-print(GetShape(df))
-print(CheckMissingValue(df))
+   ```bash
+   python scripts/eda.py
+   ```
 
-# Step 3: Preprocess the data
-df = AddHeadlineLength(df)
-df = ConvertDdate(df, column_name='publication_date')
-
-# Step 4: Analyze and visualize
-TopPublisher(df)
-YearlyArticlePublished(df)
-PlotScatterAndHeatmap(df)
-```
-
----
+4. **Notebooks**: The `notebooks/` directory contains Jupyter notebooks for model development and analysis for each stock (e.g., `AAPL_model.ipynb` for Apple). You can use these notebooks to experiment with different models and perform detailed analysis.
 
 ## Contributing
 
-Feel free to fork the repository, submit issues, or make pull requests. Contributions are welcome!
+We welcome contributions to this project! If you would like to contribute, please follow these steps:
 
----
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+Please ensure your code adheres to the project's coding standards and is well-documented.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for more information.
