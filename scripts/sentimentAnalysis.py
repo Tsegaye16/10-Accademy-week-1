@@ -9,7 +9,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.feature_extraction.text import TfidfVectorizer
 from wordcloud import WordCloud
-
+from textblob import TextBlob
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -56,6 +56,9 @@ def ClassifySentiment(score):
         return 'Positive'
     else:
         return 'Very Positive'
+
+def GetSentimentScore(text):
+    return TextBlob(text).sentiment.polarity
 
 def sentimentScore(df):
     # Plotting the distribution of sentiment scores

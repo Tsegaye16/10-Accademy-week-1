@@ -40,12 +40,12 @@ def GtHeadlineLengthStats(df):
 
 
 # Convert a specified column to datetime and set it as the index
-def ConvertDdate(df):    
-   date_length = df['date'].apply(len)
+def ConvertDdate(df, column_name):    
+   date_length = df[column_name].apply(len)
    # Truncate the 'date' column to a length of 19 characters
-   df['date'] = df['date'].str.slice(0, 19)   
+   df[column_name] = df[column_name].str.slice(0, 19)   
    # Convert the 'date' column to datetime format
-   df['date'] = pd.to_datetime(df['date'])
+   df[column_name] = pd.to_datetime(df[column_name])
     
    return df
 
@@ -177,4 +177,44 @@ def NumArticlePubTime(df):
     plt.ylabel('Number of Articles')
     plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
     plt.grid(True)
+    plt.show()
+
+def PlotDistributions(final_data):
+    plt.figure(figsize=(14, 7))
+    plt.subplot(2, 2, 1)
+    sns.histplot(final_data['Close'], kde=True, bins=30)
+    plt.title('Distribution of Closing Prices')
+    plt.xlabel('Closing Price')
+    plt.ylabel('Frequency')
+
+    plt.subplot(2, 2, 2)
+    sns.histplot(final_data['average_sentiment_score'], kde=True, bins=30)
+    plt.title('Distribution of Sentiment Scores')
+    plt.xlabel('Average Sentiment Score')
+    plt.ylabel('Frequency')
+
+    plt.tight_layout()
+    plt.show()
+def PlotScatter(final_data):
+    plt.figure(figsize=(12, 6))
+    plt.subplot(1, 2, 1)
+    sns.scatterplot(data=final_data, x='average_sentiment_score', y='daily_return')
+    plt.title('Sentiment Score vs. Daily Return')
+    plt.xlabel('Average Sentiment Score')
+    plt.ylabel('Daily Return')
+
+    plt.subplot(1, 2, 2)
+    sns.scatterplot(data=final_data, x='average_sentiment_score', y='Close')
+    plt.title('Sentiment Score vs. Closing Price')
+    plt.xlabel('Average Sentiment Score')
+    plt.ylabel('Closing Price')
+
+    plt.tight_layout()
+    plt.show()
+
+def PlotHeatmap(final_data):
+    correlation_matrix = final_data[['average_sentiment_score', 'daily_return', 'Close']].corr()
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+    plt.title('Correlation Heatmap')
     plt.show()
